@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>アプリ開発YouTube検索</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <style>
+        .desc {
+            color: blue;
+        }
+
+        .input {
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>アプリケーション開発<br>
+        YouTube動画検索アプリ
+    </h2>
+    <h4>１、Vue.jsとaxiosを使用してWebAPIを操作する<br>
+        ２、YouTube Data v3を使用する<br>
+        ３、Google Developers ConsoleにてAPIキーを入手<br>
+        ４、コード上にてaxiosでクエリパラメータを設定する<br>
+        Ajax通信「Asynchronous JavaScript + XML」で動画検索アプリを作成。<br>
+        ※Webブラウザ上で動作するJavaScriptプログラムにより、Webサーバから非同期通信(Asynchronous)<br>
+        でXMLデータを取得し、取得したデータをWebコンテンツに動的に反映する手法<br>
+        〜Ajax通信ライブラリ〜<br>
+        Promiseという非同期処理機能をベースとしたライブラリ『axios(アクオシス)』を使用する<br>
+        スクリプトコード: 「https://unpkg.com/axios/dist/axios.min.js」<br>
+        ※「html」と「.js」の2つのファイル構成で実装する<br>
+    </h4>
+    <div id="app">
+        <input class="input" v-model="keyword" placeholder="検索キーワードを入力" />
+        <button @click="searchMovies">YouTubeを検索</button>
+
+        <table class="table" v-show="results">
+            <tr>
+                <th>#</th>
+                <th>ムービー</th>
+                <th>情報</th>
+            </tr>
+            <tr v-for="(movie, index) in results" v-bind:key="movie.id.videoId">
+                <td>{{ index + 1 }}</td>
+                <td>
+                    <a v-bind:href="'https://www.youtube.com/watch?v=' + movie.id.videoId"><img width=320 height=180
+                            v-bind:src="movie.snippet.thumbnails.medium.url" /></a>
+                </td>
+                <td>
+                    <b>{{ movie.snippet.title }}</b> <br />
+                    <span class="desc">{{
+                        movie.snippet.description
+                        }}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+    <script src="./youtube1.js"></script>
+</body>
+<div class="text-center">
+    <small>Copyright &copy; 2022 takami.com All rights reserved.</small>
+</div><!-- /.text-center -->
+
+</html>
